@@ -1,6 +1,7 @@
 import PlatformAnalytics from '#platform/analytics';
 import { availableLocales, defaultLocale } from '@node-core/website-i18n';
 import classNames from 'classnames';
+import { locale as getRootLocale } from 'next/root-params';
 import { NextIntlClientProvider } from 'next-intl';
 
 import BaseLayout from '#site/layouts/Base';
@@ -13,12 +14,8 @@ import '#site/styles/index.css';
 
 const fontClasses = classNames(IBM_PLEX_MONO.variable, OPEN_SANS.variable);
 
-type RootLayoutProps = PropsWithChildren<{
-  params: Promise<{ locale: string }>;
-}>;
-
-const RootLayout: FC<RootLayoutProps> = async ({ children, params }) => {
-  const { locale } = await params;
+const RootLayout: FC<PropsWithChildren> = async ({ children }) => {
+  const locale = await getRootLocale();
 
   const { langDir, hrefLang } =
     availableLocales.find(l => l.code === locale) || defaultLocale;
