@@ -29,7 +29,6 @@ const loadLocaleDictionary = async (locale: string) => {
 export default getRequestConfig(async params => {
   // An explicit locale passed to an awaitable API like `getTranslations({ locale })`
   // wins, otherwise we read the `[locale]` segment of the root layout
-  // @see https://nextjs.org/docs/app/api-reference/functions/next-root-params
   let locale = params.locale ?? (await getRootLocale());
 
   // Ensure that the incoming locale is valid
