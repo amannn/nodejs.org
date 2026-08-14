@@ -7,6 +7,7 @@ import {
 } from '@node-core/website-i18n';
 import { notFound, redirect } from 'next/navigation';
 import { locale as getRootLocale } from 'next/root-params';
+import { getLocale } from 'next-intl/server';
 
 import { setClientContext } from '#site/client-context';
 import WithLayout from '#site/components/withLayout';
@@ -34,7 +35,7 @@ export const generateViewport = () => ({ ...PAGE_VIEWPORT });
 export const generateMetadata = async ({ params, prefix }) => {
   const { path = [] } = await params;
 
-  const locale = (await getRootLocale()) ?? defaultLocale.code;
+  const locale = await getLocale();
 
   const pathname = dynamicRouter.getPathname(path);
 
